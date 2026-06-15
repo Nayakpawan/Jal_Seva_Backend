@@ -484,22 +484,30 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
 });
 
 
-
+// controllers/adminController.js
 export const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const admin = await Admin.findOne({ email });
+    if (!email || !password) {
+      return res.status(400).json({ message: "Please provide email and password" });
+    }
+
+    const admin = await Admin.findOne({ email }).select("+password");
 
     if (!admin) {
       return res.status(400).json({ message: "Admin not found" });
     }
 
-    // 🔥 COMPARE HASHED PASSWORD
     const isMatch = await bcrypt.compare(password, admin.password);
 
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Role check
+    if (admin.role !== "admin") {
+      return res.status(403).json({ message: "Unauthorized access" });
     }
 
     res.status(200).json({
@@ -508,7 +516,7 @@ export const adminLogin = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Server error: " + error.message });
   }
 };
 
