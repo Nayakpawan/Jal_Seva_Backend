@@ -932,7 +932,7 @@ export const createNotice = async (req, res) => {
     const { title, description ,link} = req.body;
 
     // Validation
-    if (!title || !description || !link) {
+    if (!title || !description) {
       return res.status(400).json({ success: false, message: "Title and Description & link are required!" });
     }
 
@@ -947,7 +947,7 @@ export const createNotice = async (req, res) => {
     const newNotice = await Notice.create({ 
       title, 
       description, 
-     link,
+      link: link || "",
       image: imageUrl 
     });
 
