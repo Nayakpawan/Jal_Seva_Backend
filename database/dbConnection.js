@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
+import dns from "dns";
 
+dns.setDefaultResultOrder("ipv4first");
+
+dns.setServers([
+  '1.1.1.1',
+  '8.8.8.8'
+])
 export const connection = () => {
   mongoose
     .connect(process.env.MONGO_URI, {
