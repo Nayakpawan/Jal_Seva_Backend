@@ -1,3 +1,6 @@
+import { Admin } from "../models/adminModel.js";
+import bcrypt from "bcrypt";
+
 export const createDefaultAdmin = async () => {
   try {
     const adminExists = await Admin.findOne({ email: "admin@gmail.com" });
