@@ -929,11 +929,11 @@ export const getDashboardStats = async (req, res) => {
 
 export const createNotice = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description ,link} = req.body;
 
     // Validation
-    if (!title || !description) {
-      return res.status(400).json({ success: false, message: "Title and Description are required!" });
+    if (!title || !description || !link) {
+      return res.status(400).json({ success: false, message: "Title and Description & link are required!" });
     }
 
     let imageUrl = "";
@@ -947,6 +947,7 @@ export const createNotice = async (req, res) => {
     const newNotice = await Notice.create({ 
       title, 
       description, 
+     link,
       image: imageUrl 
     });
 
