@@ -44,6 +44,8 @@ app.use(
       "exp://10.23.91.167:8081",
       "http://10.224.177.167:4000",
       "http://10.224.177.167:8081",
+      "https://admindeshboard-nayakpawans-projects.vercel.app",
+      "https://admindeshboard-smoky.vercel.app",
       process.env.FRONTEND_URL,"http://localhost:5173", "http://localhost:3001",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
